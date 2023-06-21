@@ -1,4 +1,4 @@
-import { createPhotoDescriptions } from '/çjs/data.js';
+import { createPhotoDescriptions } from '/js/data.js';
 
 createPhotoDescriptions();
 
