@@ -1,5 +1,5 @@
 //Функция для проверки длины строки
-function checkStringLegth(someString, maxLength){
+function checkStringLength(someString, maxLength){
   return someString.length <= maxLength;
 }
 
@@ -15,11 +15,7 @@ function reverseString(someString){
 
 //Функция для проверки, является ли строка палиндромом
 function checkPalindrome(originalString){
-  let modifiedString = originalString;
-  //Убираем пробелы
-  modifiedString = modifiedString.replaceAll(' ', '');
-  //Убираем регистр
-  modifiedString = modifiedString.toLowerCase();
+  const modifiedString = originalString.replaceAll(' ', '').toLowerCase();
   //Делаем реверс строки
   const compareString = reverseString(modifiedString);
   //Сравниваем значения
@@ -28,13 +24,10 @@ function checkPalindrome(originalString){
 
 //Функция для извлечения числа из строки
 function getNumber(someString){
-  //console.log(someString);
   let result = '';
   let modifiedString = (Number.isFinite(someString)) ? someString.toString() : someString;
-  //console.log(modifiedString);
   //Убираем пробелы
   modifiedString = modifiedString.replaceAll(' ', '');
-  //console.log(modifiedString);
   //Убираем все символы кроме цифр
   //modifiedString = modifiedString.replace(/[0-9]/g, '');
 
@@ -50,35 +43,55 @@ function getNumber(someString){
   return NaN;
 }
 
+
 //Тестирование функции checkStringLegth()
-checkStringLegth('проверяемая строка', 20); // true
+checkStringLength('проверяемая строка', 20); // true
 // Cтрока короче 20 символов
-/*console.log(checkStringLegth('проверяемая строка', 20)); // true
+checkStringLength('проверяемая строка', 20); // true
 // Длина строки ровно 18 символов
-console.log(checkStringLegth('проверяемая строка', 18)); // true
+checkStringLength('проверяемая строка', 18); // true
 // Строка короче 10 символов
-console.log(checkStringLegth('проверяемая строка', 10)); // false
-*/
+checkStringLength('проверяемая строка', 10); // false
+
 
 //Тестирование функции checkPalindrome()
 checkPalindrome('топот'); // true
-/*// Строка является палиндромом
-console.log(checkPalindrome('топот')); // true
+// Строка является палиндромом
+checkPalindrome('топот'); // true
 // Несмотря на разный регистр, тоже палиндром
-console.log(checkPalindrome('ДовОд')); // true
+checkPalindrome('ДовОд'); // true
 // Это не палиндром
-console.log(checkPalindrome('Кекс')); // false
+checkPalindrome('Кекс'); // false
 // Это палиндром
-console.log(checkPalindrome('Лёша на полке клопа нашёл ')); // true
-*/
+checkPalindrome('Лёша на полке клопа нашёл '); // true
+
 
 //Тестирование функции getNumber()
 getNumber('2023 год');
-// console.log(getNumber('2023 год'));// 2023
-// console.log(getNumber('ECMAScript 2022'));// 2022
-// console.log(getNumber('1 кефир, 0.5 батона')); // 105
-// console.log(getNumber('агент 007'));// 7
-// console.log(getNumber('а я томат'));// NaN
-// console.log(getNumber(2023)); // 2023
-// console.log(getNumber(-1)); // 1
-// console.log(getNumber(1.5)); // 15
+getNumber('2023 год');// 2023
+getNumber('ECMAScript 2022');// 2022
+getNumber('1 кефир, 0.5 батона'); // 105
+getNumber('агент 007');// 7
+getNumber('а я томат');// NaN
+getNumber(2023); // 2023
+getNumber(-1); // 1
+getNumber(1.5); // 15
+
+const getTime = (time) => {
+  const [hour, minutes] = time.split(':').map(Number);
+  return hour * 60 + minutes;
+};
+
+
+const checkWorkTime = (startTime, endTime, startMeet, durationMeet) => {
+  const startMinutes = getTime(startTime);
+  const endMinutes = getTime(endTime);
+  const startMeetMinutes = getTime(startMeet);
+  return startMeetMinutes >= startMinutes && (startMeetMinutes + durationMeet) <= endMinutes;
+};
+
+checkWorkTime('08:00', '17:30', '14:00', 90); // true
+checkWorkTime('8:0', '10:0', '8:0', 120); // true
+checkWorkTime('08:00', '14:30', '14:00', 90); // false
+checkWorkTime('14:00', '17:30', '08:0', 90); // false
+checkWorkTime('8:00', '17:30', '08:00', 900); // false
