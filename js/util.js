@@ -25,6 +25,21 @@ const createRandomNumberFromRangeGenerator = (min, max) => {
   };
 };
 
+const createIdGenerator = () => {
+  let lastId = 0;
+  return () => {
+    lastId += 1;
+    return lastId;
+  };
+};
+
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, createRandomNumberFromRangeGenerator, getRandomArrayElement};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {
+  getRandomInteger,
+  createRandomNumberFromRangeGenerator,
+  getRandomArrayElement, createIdGenerator,
+  isEscapeKey,
+};
