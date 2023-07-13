@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement,createRandomNumberFromRangeGenerator } from '/js/util.js';
+import { getRandomInteger, getRandomArrayElement,createRandomNumberFromRangeGenerator, createIdGenerator } from '/js/util.js';
 
 const USER_PHOTO_COUNT = 25;
 
@@ -35,10 +35,11 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const generatePhotoId = createRandomNumberFromRangeGenerator(1, 25);
+
+//const generatePhotoId = createRandomNumberFromRangeGenerator(1, 25);
 const generateUrlId = createRandomNumberFromRangeGenerator(1, 25);
-const generateCommentId = createRandomNumberFromRangeGenerator(1, 500);
-const generateAvatarId = createRandomNumberFromRangeGenerator(1, 6);
+const generateCommentId = createIdGenerator();
+//const generateAvatarId = getRandomInteger(1, 6);
 
 const generateMessage = () => {
   const messageCount = getRandomInteger(1, 2);
@@ -51,7 +52,7 @@ const generateMessage = () => {
 
 const createComment = () => {
   const id = generateCommentId();
-  const avatarId = generateAvatarId();
+  const avatarId = getRandomInteger(1, 6);
   const message = generateMessage();
   return {
     id: id,
@@ -61,8 +62,8 @@ const createComment = () => {
   };
 };
 
-const createPhotoDescription = () => {
-  const id = generatePhotoId();
+const createPhotoDescription = (index) => {
+  const id = index;
   const urlId = generateUrlId();
   return{
     id: id,
@@ -73,5 +74,6 @@ const createPhotoDescription = () => {
   };
 };
 
-const createPhotoDescriptions = () => Array.from({length: USER_PHOTO_COUNT}, createPhotoDescription);
+const createPhotoDescriptions = () => Array.from(
+  {length: USER_PHOTO_COUNT}, (_, photoIndex) => createPhotoDescription(photoIndex + 1));
 export {createPhotoDescriptions};
