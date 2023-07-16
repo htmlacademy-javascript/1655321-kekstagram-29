@@ -2,7 +2,7 @@ import { getRandomInteger, getRandomArrayElement,createRandomNumberFromRangeGene
 
 const USER_PHOTO_COUNT = 25;
 
-const COMMENTS_COUNT = 30;
+//const COMMENTS_COUNT = 30;
 
 const PHOTO_DESCRIPTION = [
   'Рецепт блинчиков',
@@ -65,12 +65,13 @@ const createComment = () => {
 const createPhotoDescription = (index) => {
   const id = index;
   const urlId = generateUrlId();
+  const commentCount = getRandomInteger(1, 125);
   return{
     id: id,
     url: `photos/${urlId}.jpg`,
     description: getRandomArrayElement(PHOTO_DESCRIPTION),
     likes: getRandomInteger(15, 200),
-    comments: Array.from({length: COMMENTS_COUNT}, createComment)
+    comments: Array.from({length: commentCount}, createComment)
   };
 };
 
