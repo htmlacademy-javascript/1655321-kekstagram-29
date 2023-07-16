@@ -16,7 +16,7 @@ let commentShow = 0;
 let comments = [];
 
 //Собрать описание к фото
-const renderBigPicturesContent = ({url, description, likes, comments }) => {
+const renderBigPicturesContent = ({url, description, likes }) => {
   bigPictureImg.src = url;
   bigPictureImg.alt = description;
   likesCount.textContent = likes;
