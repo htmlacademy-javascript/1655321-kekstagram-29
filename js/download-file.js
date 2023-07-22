@@ -1,4 +1,6 @@
 import {isEscapeKey} from '/js/util.js';
+import {removeScaleEvent, addScaleEvent} from '/js/scale.js';
+import { addEffectEvent, removeEffectEvent } from '/js/effect.js';
 
 const MAX_HASTAG_COUNT = 5;
 const ERROR_TEXT = {
@@ -7,6 +9,7 @@ const ERROR_TEXT = {
   notUnique: 'Хэштеги не должны повторяться'
 };
 const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
+
 const imgUploadForm = document.querySelector('.img-upload__form');
 const imgUploadInput = imgUploadForm.querySelector('.img-upload__input');
 const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
@@ -15,18 +18,23 @@ const imgUploadCancel = imgUploadForm.querySelector('.img-upload__cancel');
 const textHashtags = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
 
+
 const pristine = new Pristine(imgUploadForm,{
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper'
 });
 
+//Приводит хэштег к удобному для проверки виду
 const normalizeHashtag = (hashtags) =>
   hashtags.trim().split(' ').filter((hashtag) => Boolean(hashtag.length));
 
+//Проверка на количество хэштегов
 const checkHashtagCount = (value) => normalizeHashtag(value).length <= MAX_HASTAG_COUNT;
 
+//Проверка на допустимые символы в хэштеге
 const checkValidHashtag = (value) => normalizeHashtag(value).every((hashtag) => VALID_HASHTAG.test(hashtag));
 
+//Проверка хэштега на дубли
 const checkUniqueHashtag = (value) => {
   const lowerCaseHashtags = normalizeHashtag(value).map((hashtag) => hashtag.toLowerCase());
   return lowerCaseHashtags.length === new Set(lowerCaseHashtags).size;
@@ -67,6 +75,7 @@ const stopPropagationEscape = (evt) => {
   }
 };
 
+//Функция для закрытия окна с редактированием файла
 const closeModal = () =>{
   imgUploadForm.reset();
   pristine.reset();
@@ -74,9 +83,11 @@ const closeModal = () =>{
   bodyElement.classList.remove('modal-open');
   removeKeydownEvent();
   imgUploadCancel.removeEventListener('click', onCancelButtonClick);
+  removeScaleEvent();
+  removeEffectEvent();
 };
 
-//функция запуска обработчика закрытия при нажатии на Esc
+//Функция запуска обработчика закрытия при нажатии на Esc
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -96,10 +107,14 @@ function onCancelButtonClick(){
 
 imgUploadInput.addEventListener('change', () => {
   imgUploadCancel.addEventListener('click', onCancelButtonClick);
+  addScaleEvent();
+  addEffectEvent();
   showModal();
 });
 
+//Блокировка нажатия Esc при фокусе в поле с описанием
 textDescription.addEventListener('keydown',stopPropagationEscape);
 
+//Блокировка нажатия Esc при фокусе в поле с хэштегами
 textHashtags.addEventListener('keydown',stopPropagationEscape);
 
