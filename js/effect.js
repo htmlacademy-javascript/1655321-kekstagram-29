@@ -76,10 +76,10 @@ const createSlider = ({ min, max, step }) => {
     connect: 'lower',
     format: {
       to: function (value) {
-        if (Number.isInteger(value)) {
+        if (Number.isInteger(value) > 1) {
           return value.toFixed(0);
         }
-        return value.toFixed(1);
+        return value.toFixed(2);
       },
       from: function (value) {
         return parseFloat(value);
