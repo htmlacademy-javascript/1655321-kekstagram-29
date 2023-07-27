@@ -1,7 +1,9 @@
-import {openPhoto} from '/js/big-picture.js';
+import {openPhoto} from './big-picture.js';
+import { renderPictures } from './miniatures.js';
 const galleryPictures = document.querySelector('.pictures');
 
 const renderGalleryPictures = (pictures) => {
+  renderPictures(pictures);
   galleryPictures.addEventListener('click', (evt)=> {
     const currentObj = evt.target.closest('[data-picture-id]');
     if (!currentObj){

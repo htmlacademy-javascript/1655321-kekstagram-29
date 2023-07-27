@@ -1,4 +1,4 @@
-import {isEscapeKey} from '/js/util.js';
+import {isEscapeKey} from './util.js';
 const COMMENTS_PART = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');

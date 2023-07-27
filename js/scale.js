@@ -2,7 +2,7 @@ const imgUploadForm = document.querySelector('.img-upload__form');
 const scaleControlSmaller = imgUploadForm.querySelector('.scale__control--smaller');
 const scaleControlBigger = imgUploadForm.querySelector('.scale__control--bigger');
 const scaleControlValue = imgUploadForm.querySelector('.scale__control--value');
-const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview');
+const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
 let photoSize = 100;
 
 const imageScale = () => {
