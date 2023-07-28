@@ -133,11 +133,13 @@ textHashtags.addEventListener('keydown',stopPropagationEscape);
 const toggleSubmitButton = (isDisabled) => {
   imgUploadSubmit.disabled = isDisabled;
   imgUploadSubmit.textContent = isDisabled ? SubmitButtonText.SENDING : SubmitButtonText.IDLE;
+  imgUploadSubmit.style.opacity = isDisabled ? 0.5 : 1;
 };
 
 const uploadSuccess = () => {
-  closeModal();
+  toggleSubmitButton(false);
   showMessage(MESSAGE_TYPE.success, '.success__button');
+  closeModal();
   toggleSubmitButton(false);
 };
 
