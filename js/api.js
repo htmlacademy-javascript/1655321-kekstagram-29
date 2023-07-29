@@ -26,5 +26,4 @@ const sendData = async (method, body, onSuccess, onError) => {
   }
 };
 
-
 export {getData, sendData};
