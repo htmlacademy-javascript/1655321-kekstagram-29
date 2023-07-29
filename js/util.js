@@ -1,4 +1,4 @@
-import { ALERT_SHOW_TIME } from './constants.js';
+import {ALERT_SHOW_TIME} from './constants.js';
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
