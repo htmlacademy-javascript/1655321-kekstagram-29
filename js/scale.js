@@ -1,3 +1,5 @@
+import { MAX_SCALE, MIN_SCALE } from './constants.js';
+
 const imgUploadForm = document.querySelector('.img-upload__form');
 const scaleControlSmaller = imgUploadForm.querySelector('.scale__control--smaller');
 const scaleControlBigger = imgUploadForm.querySelector('.scale__control--bigger');
@@ -11,17 +13,17 @@ const imageScale = () => {
 };
 
 const onBiggerControlClick = () =>{
-  photoSize += 25;
-  if (photoSize >= 100){
-    photoSize = 100;
+  photoSize += MIN_SCALE;
+  if (photoSize >= MAX_SCALE){
+    photoSize = MAX_SCALE;
   }
   imageScale();
 };
 
 const onSmallerControlClick = () =>{
-  photoSize -= 25;
-  if (photoSize <= 25){
-    photoSize = 25;
+  photoSize -= MIN_SCALE;
+  if (photoSize <= MIN_SCALE){
+    photoSize = MIN_SCALE;
   }
   imageScale();
 };

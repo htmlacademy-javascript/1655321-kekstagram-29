@@ -1,12 +1,6 @@
 import { debounce } from './util.js';
 import { renderGalleryPictures } from './gallery.js';
-
-const PICTURES_COUNT = 10;
-const RERENDER_DELAY = 500;
-const SORT_TYPE = {
-  random: 'filter-random',
-  discussed: 'filter-discussed'
-};
+import { PICTURES_COUNT, RERENDER_DELAY, SortType } from './constants.js';
 
 const filters = document.querySelector('.img-filters');
 const filtersForm = filters.querySelector('.img-filters__form');
@@ -26,9 +20,9 @@ const sortByRandomOrder = (pictures) => {
 
 const getSortingPictures = (id, pictures) => {
   switch (id) {
-    case SORT_TYPE.random:
+    case SortType.RANDOM:
       return sortByRandomOrder(pictures);
-    case SORT_TYPE.discussed:
+    case SortType.DISCUSSED:
       return sortByCommentsCount(pictures);
     default:
       return pictures;
@@ -42,7 +36,7 @@ const renderSortingPictures = (id, pictures) => {
 
 const renderPictures = debounce((id, pictures) => renderSortingPictures(id, pictures), RERENDER_DELAY);
 
-const initFilter = (pictures) => {
+const initSort = (pictures) => {
   filters.classList.remove('img-filters--inactive');
 
   filtersForm.addEventListener('click', (evt) => {
@@ -54,4 +48,4 @@ const initFilter = (pictures) => {
   });
 };
 
-export {initFilter, renderSortingPictures};
+export {initSort, renderSortingPictures};

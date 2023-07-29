@@ -1,5 +1,6 @@
-import {isEscapeKey} from './util.js';
-const COMMENTS_PART = 5;
+import { isEscapeKey } from './util.js';
+import { COMMENTS_PORTION } from './constants.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -12,7 +13,7 @@ const bodyElement = document.querySelector('body');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentsLoader = bigPicture.querySelector('.social__comments-loader');
 
-let commentShow = 0;
+let commentsVisibleCount = 0;
 let comments = [];
 
 //Собрать описание к фото
@@ -35,21 +36,21 @@ const createComment = ({avatar, name, message}) => {
 
 //Сформировать комментарии
 const renderComments = () => {
-  commentShow += COMMENTS_PART;
-  if (commentShow >= comments.length){
+  commentsVisibleCount += COMMENTS_PORTION;
+  if (commentsVisibleCount >= comments.length){
     socialCommentsLoader.classList.add('hidden');
-    commentShow = comments.length;
+    commentsVisibleCount = comments.length;
   } else{
     socialCommentsLoader.classList.remove('hidden');
   }
   const commentFragment = document.createDocumentFragment();
-  for (let i = 0; i < commentShow; i++){
+  for (let i = 0; i < commentsVisibleCount; i++){
     const comment = createComment(comments[i]);
     commentFragment.appendChild(comment);
   }
   socialComments.innerHTML = '';
   socialComments.appendChild(commentFragment);
-  socialCommentCount.querySelector('#comments').textContent = commentShow;
+  socialCommentCount.querySelector('#comments').textContent = commentsVisibleCount;
   socialCommentCount.querySelector('.comments-count').textContent = comments.length;
 };
 
@@ -62,7 +63,7 @@ const closePhoto = () => {
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   socialCommentsLoader.removeEventListener('click', onCommentsLoaderClick);
-  commentShow = 0;
+  commentsVisibleCount = 0;
 };
 
 //функция запуска обработчика закрытия при нажатии на Esc
