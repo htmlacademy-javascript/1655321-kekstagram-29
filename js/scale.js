@@ -1,14 +1,14 @@
-import { MAX_SCALE, MIN_SCALE } from './constants.js';
+import {MAX_SCALE, MIN_SCALE} from './constants.js';
 
-const imgUploadForm = document.querySelector('.img-upload__form');
-const scaleControlSmaller = imgUploadForm.querySelector('.scale__control--smaller');
-const scaleControlBigger = imgUploadForm.querySelector('.scale__control--bigger');
-const scaleControlValue = imgUploadForm.querySelector('.scale__control--value');
-const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
+const uploadForm = document.querySelector('.img-upload__form');
+const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
+const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControlValue = uploadForm.querySelector('.scale__control--value');
+const uploadPreview = uploadForm.querySelector('.img-upload__preview img');
 let photoSize = 100;
 
-const imageScale = () => {
-  imgUploadPreview.style.transform = `scale(${photoSize / 100})`;
+const changeImageScale = () => {
+  uploadPreview.style.transform = `scale(${photoSize / 100})`;
   scaleControlValue.value = `${photoSize.toString()}%`;
 };
 
@@ -17,7 +17,7 @@ const onBiggerControlClick = () =>{
   if (photoSize >= MAX_SCALE){
     photoSize = MAX_SCALE;
   }
-  imageScale();
+  changeImageScale();
 };
 
 const onSmallerControlClick = () =>{
@@ -25,11 +25,11 @@ const onSmallerControlClick = () =>{
   if (photoSize <= MIN_SCALE){
     photoSize = MIN_SCALE;
   }
-  imageScale();
+  changeImageScale();
 };
 
 const addScaleEvent = () => {
-  imgUploadPreview.style.transform = `scale(${photoSize / 100})`;
+  uploadPreview.style.transform = `scale(${photoSize / 100})`;
   scaleControlSmaller.addEventListener('click', onSmallerControlClick);
   scaleControlBigger.addEventListener('click', onBiggerControlClick);
 };

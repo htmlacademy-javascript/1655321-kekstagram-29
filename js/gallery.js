@@ -1,5 +1,9 @@
 import {openPhoto} from './big-picture.js';
-import { renderPictures } from './miniatures.js';
+import {renderPictures} from './miniatures.js';
+import {addSort, renderSortingPictures} from './sort-pictures.js';
+import {getData} from './api.js';
+import {showAlert} from './util.js';
+
 const galleryPictures = document.querySelector('.pictures');
 
 let pictures = [];
@@ -20,4 +24,15 @@ const renderGalleryPictures = (currentPictures) => {
   galleryPictures.addEventListener('click', onGalleryPicturesClick);
 };
 
-export {renderGalleryPictures};
+const getPictures = async() => {
+  try{
+    const receivedPictures = await getData();
+    renderGalleryPictures(receivedPictures);
+    addSort(receivedPictures);
+    renderSortingPictures(document.querySelector('.img-filters__button--active').id, receivedPictures);
+  } catch (err){
+    showAlert(err.message);
+  }
+};
+
+export {renderGalleryPictures, getPictures};

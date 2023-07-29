@@ -1,6 +1,6 @@
-import { debounce } from './util.js';
-import { renderGalleryPictures } from './gallery.js';
-import { PICTURES_COUNT, RERENDER_DELAY, SortType } from './constants.js';
+import {debounce} from './util.js';
+import {renderGalleryPictures} from './gallery.js';
+import {PICTURES_COUNT, RERENDER_DELAY, SortType} from './constants.js';
 
 const filters = document.querySelector('.img-filters');
 const filtersForm = filters.querySelector('.img-filters__form');
@@ -36,7 +36,7 @@ const renderSortingPictures = (id, pictures) => {
 
 const renderPictures = debounce((id, pictures) => renderSortingPictures(id, pictures), RERENDER_DELAY);
 
-const initSort = (pictures) => {
+const addSort = (pictures) => {
   filters.classList.remove('img-filters--inactive');
 
   filtersForm.addEventListener('click', (evt) => {
@@ -48,4 +48,4 @@ const initSort = (pictures) => {
   });
 };
 
-export {initSort, renderSortingPictures};
+export {addSort, renderSortingPictures};

@@ -1,4 +1,4 @@
-import { BASE_URL, ErrorText, Route } from './constants.js';
+import {BASE_URL, ErrorText, Route} from './constants.js';
 
 const getData = async () => {
   try {
