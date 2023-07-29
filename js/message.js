@@ -1,5 +1,7 @@
 import {isEscapeKey} from './util.js';
+
 const body = document.querySelector('body');
+
 let messageElement;
 let isOpen = false;
 
@@ -9,7 +11,7 @@ const hideMessage = () => {
   if (!isOpen) {
     body.classList.remove('modal-open');
   }
-  messageElement.removeEventListener('click', onMessageClick);
+  document.removeEventListener('click', onClickOutside);
 };
 
 //Функция запуска обработчика закрытия при нажатии на Esc
@@ -21,11 +23,10 @@ function onDocumentKeydown (evt) {
   }
 }
 
-function onMessageClick(evt) {
-  if (evt.target.closest('.success') || evt.target.closest('.error')){
-    return;
+function onClickOutside(evt) {
+  if (evt.target.classList.contains('success') || evt.target.classList.contains('error')) {
+    hideMessage();
   }
-  hideMessage();
 }
 
 const showMessage = (type, closeButtonClass) => {
@@ -33,8 +34,8 @@ const showMessage = (type, closeButtonClass) => {
   messageElement = messageElementTemplate.cloneNode(true);
   body.append(messageElement);
   isOpen = false;
-  messageElement.addEventListener('click', onMessageClick);
   document.addEventListener('keydown', onDocumentKeydown, { capture: true });
+  document.addEventListener('click', onClickOutside);
   messageElement.querySelector(closeButtonClass).addEventListener('click', hideMessage);
   if (!body.classList.contains('modal-open')) {
     document.body.classList.add('modal-open');
